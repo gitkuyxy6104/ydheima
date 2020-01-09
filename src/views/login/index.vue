@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import request from '@/utils/request'
+import { login } from '@/api/user'
 export default {
   data () {
     return {
@@ -50,11 +50,7 @@ export default {
         loadingType: 'spinner'
       })
       try {
-        const res = await request({
-          method: 'POST',
-          url: '/app/v1_0/authorizations',
-          data: user
-        })
+        const res = await login(user)
         console.log(res)
         this.$toast.success('登录成功')
       } catch {
