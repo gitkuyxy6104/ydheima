@@ -4,21 +4,26 @@
     <van-nav-bar title="标题" />
     <!-- 登录表单 -->
     <van-cell-group>
-      <van-field  clearable label="手机号"  placeholder="请输入手机号" v-model="user.mobile">
-          <template slot="left-icon">
-             <i class="icon icon-shouji1" style="font-size:25px"></i>
+      <van-field clearable label="手机号" placeholder="请输入手机号" v-model="user.mobile">
+        <template slot="left-icon">
+          <i class="icon icon-shouji1" style="font-size:25px"></i>
         </template>
       </van-field>
       <van-field label="验证码" placeholder="请输入验证码" v-model="user.code">
-        <template slot="left-icon" >
+        <template slot="left-icon">
           <i class="icon icon-yanzhengma" style="font-size:20px;padding-right:5px"></i>
         </template>
-         <van-button
-          slot="button"
-          size="small"
-          type="primary"
-          round
-        >发送验证码</van-button>
+        <van-button
+         slot="button"
+         size="small"
+         type="primary"
+         round>发送验证码
+        </van-button>
+        <van-count-down
+         :time="60 * 1000"
+         slot="button"
+         format="ss 秒"
+         />
       </van-field>
     </van-cell-group>
     <div class="login-btn-wrap">
