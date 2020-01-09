@@ -27,6 +27,7 @@
          :time="60 * 1000"
          slot="button"
          format="ss 秒"
+         @finish="isCountDownShow = false"
          />
       </van-field>
     </van-cell-group>
@@ -61,6 +62,7 @@ export default {
         this.isCountDownShow = true
       } catch (err) {
         console.log(err)
+        this.isCountDownShow = false
         this.$toast('请勿频繁操作')
       }
     },
