@@ -44,12 +44,22 @@ export default {
       const user = this.user
       // 表单验证
       // 请求登录
-      const res = await request({
-        method: 'POST',
-        url: '/app/v1_0/authorizations',
-        data: user
+      this.$toast.loading({
+        message: '加载中...',
+        forbidClick: true,
+        loadingType: 'spinner'
       })
-      console.log(res)
+      try {
+        const res = await request({
+          method: 'POST',
+          url: '/app/v1_0/authorizations',
+          data: user
+        })
+        console.log(res)
+        this.$toast.success('登录成功')
+      } catch {
+        this.$toast.fail('登录失败')
+      }
     }
   }
 }
