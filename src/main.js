@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+// 加载验证插件的初始配置
+import './utils/validation.js'
 // 引入rem 适配
 import 'amfe-flexible'
 // 引入vant模块
