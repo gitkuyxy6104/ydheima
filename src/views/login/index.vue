@@ -17,7 +17,7 @@
           errors[0] 获取错误消息
     -->
     <ValidationObserver ref="form">
-      <ValidationProvider name="手机号" immediate  rules="required" v-slot="{ errors }">
+      <ValidationProvider name="手机号" immediate  rules="required|mobile" v-slot="{ errors }">
         <van-field clearable label="手机号" placeholder="请输入手机号" v-model="user.mobile">
           <template slot="left-icon">
             <i class="icon icon-shouji1" style="font-size:25px"></i>
@@ -25,7 +25,7 @@
         </van-field>
         <!-- <span>{{errors[0]}}</span> -->
       </ValidationProvider>
-      <ValidationProvider name="验证码" immediate  rules="required" v-slot="{ errors }">
+      <ValidationProvider name="验证码" immediate  rules="required|code" v-slot="{ errors }">
         <van-field label="验证码" placeholder="请输入验证码" v-model="user.code">
           <template slot="left-icon">
             <i class="icon icon-yanzhengma" style="font-size:20px;padding-right:5px"></i>
