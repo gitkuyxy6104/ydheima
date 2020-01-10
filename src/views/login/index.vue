@@ -10,17 +10,22 @@
          name   配置字段的提示名称
          rules  配置校验规则
          v-slot="{ errors }" 获取校验失败的错误提示消息
+         内置的规则：https://logaretm.github.io/vee-validate/guide/rules.html#rules
+          自定义规则：
+          单个验证规则：rules="required"
+          多个验证规则：rules="required|length:4"
+          errors[0] 获取错误消息
     -->
-    <ValidationObserver>
-      <ValidationProvider name="手机号" rules="required" v-slot="{ errors }">
+    <ValidationObserver ref="form">
+      <ValidationProvider name="手机号" immediate  rules="required" v-slot="{ errors }">
         <van-field clearable label="手机号" placeholder="请输入手机号" v-model="user.mobile">
           <template slot="left-icon">
             <i class="icon icon-shouji1" style="font-size:25px"></i>
           </template>
         </van-field>
-        <span>{{errors[0]}}</span>
+        <!-- <span>{{errors[0]}}</span> -->
       </ValidationProvider>
-      <ValidationProvider name="验证码" rules="required" v-slot="{ errors }">
+      <ValidationProvider name="验证码" immediate  rules="required" v-slot="{ errors }">
         <van-field label="验证码" placeholder="请输入验证码" v-model="user.code">
           <template slot="left-icon">
             <i class="icon icon-yanzhengma" style="font-size:20px;padding-right:5px"></i>
@@ -41,7 +46,7 @@
             @finish="isCountDownShow = false"
           />
         </van-field>
-        <span>{{errors[0]}}</span>
+        <!-- <span>{{errors[0]}}</span> -->
       </ValidationProvider>
     </ValidationObserver>
     <div class="login-btn-wrap">
@@ -84,18 +89,28 @@ export default {
       // 获取数据
       const user = this.user
       // 表单验证
-      // 请求登录
-      this.$toast.loading({
-        message: '加载中...',
-        forbidClick: true,
-        loadingType: 'spinner'
-      })
-      try {
-        const res = await login(user)
-        console.log(res)
-        this.$toast.success('登录成功')
-      } catch {
-        this.$toast.fail('登录失败')
+      const success = await this.$refs.form.validate()
+      if (!success) { // success 是验证成功为true 失败为false
+        // 失败提示代码写这里
+        // 如果你需要像以下这样在js中这样拿错误消息是拿不到得
+        // 因为此验证条件为获得焦点并失去焦点才会去验证 而我们直接点击登录按钮并不会有焦点操作所以需要设置immediate
+        // 这样一上来就会先自动校验一次
+        // 必须给每一个 ValidationProvider 配置 immediate 它得意思就是立即得
+        console.log(this.$refs.form.errors)
+      } else {
+        // 请求登录
+        this.$toast.loading({
+          message: '加载中...',
+          forbidClick: true,
+          loadingType: 'spinner'
+        })
+        try {
+          const res = await login(user)
+          console.log(res)
+          this.$toast.success('登录成功')
+        } catch {
+          this.$toast.fail('登录失败')
+        }
       }
     }
   }
