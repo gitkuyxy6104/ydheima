@@ -96,7 +96,19 @@ export default {
         // 因为此验证条件为获得焦点并失去焦点才会去验证 而我们直接点击登录按钮并不会有焦点操作所以需要设置immediate
         // 这样一上来就会先自动校验一次
         // 必须给每一个 ValidationProvider 配置 immediate 它得意思就是立即得
-        console.log(this.$refs.form.errors)
+        // console.log(this.$refs.form.errors)
+        // 拿到错误信息
+        const errors = this.$refs.form.errors
+        // 因为拿到得是个对象 遍历对象 然后判断每一项有无长度
+        // 如有长度 就把该长度得内容拿出来 然后轻提示
+        for (let key in errors) {
+          const item = errors[key]
+          if (item[0]) {
+            this.$toast(item[0])
+            // 找到第1个有错误的消息，给出提示，停止遍历
+            return
+          }
+        }
       } else {
         // 请求登录
         this.$toast.loading({
