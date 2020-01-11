@@ -125,8 +125,10 @@ export default {
           loadingType: 'spinner'
         })
         try {
-          const res = await login(user)
-          console.log(res)
+          const { data } = await login(user)
+          // console.log(res)
+          // 成功之后 把获取到得token存到vuex容器中
+          this.$store.commit('setUser', data.data)
           this.$toast.success('登录成功')
         } catch {
           this.$toast.fail('登录失败')
