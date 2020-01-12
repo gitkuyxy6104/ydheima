@@ -51,7 +51,7 @@
         </div>
         <div>
           <span>简介：</span>
-          <span>{{ user.intro }}</span>
+          <span>用户的简介信息</span>
         </div>
       </div>
     </div>
@@ -94,6 +94,22 @@ export default {
         console.log(err)
         this.$toast('获取用户数据失败')
       }
+    },
+    onLoad () {
+      console.log('onLoad')
+      // 1. 请求获取数据
+      setTimeout(() => {
+        // 2. 把数据添加到列表中
+        for (let i = 0; i < 10; i++) {
+          this.list.push(this.list.length + 1)
+        }
+        // 3. 加载状态结束
+        this.loading = false
+        // 4. 判断数据是否全部加载完毕
+        if (this.list.length >= 40) {
+          this.finished = true
+        }
+      }, 500)
     }
   },
   created () {
@@ -128,7 +144,7 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
-        width: 80%;
+        width: 70%;
         height: 80px;
         padding: 0 12px;
         >.row1 {
