@@ -130,6 +130,7 @@ export default {
           // 成功之后 把获取到得token存到vuex容器中
           this.$store.commit('setUser', data.data)
           this.$toast.success('登录成功')
+          this.$router.push('/')
         } catch {
           this.$toast.fail('登录失败')
         }
