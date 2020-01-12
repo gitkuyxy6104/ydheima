@@ -16,19 +16,19 @@
         <div class="col2">
           <div class="row1">
             <div class="item">
-              <div class="count">123</div>
+              <div class="count">{{ user.art_count }}</div>
               <div class="text">发布</div>
             </div>
             <div class="item">
-              <div class="count">123</div>
+              <div class="count">{{ user.follow_count }}</div>
               <div class="text">关注</div>
             </div>
             <div class="item">
-              <div class="count">123</div>
+              <div class="count">{{ user.fans_count }}</div>
               <div class="text">粉丝</div>
             </div>
             <div class="item">
-              <div class="count">123</div>
+              <div class="count">{{ user.like_count }}</div>
               <div class="text">获赞</div>
             </div>
           </div>
@@ -38,7 +38,7 @@
               size="small"
             >私信</van-button>
             <van-button
-              type="default"
+               type="info"
               size="small"
             >编辑资料</van-button>
           </div>
@@ -47,24 +47,58 @@
       <div class="intro-wrap">
         <div>
           <span>认证：</span>
-          <span>用户的认证信息</span>
+          <span>{{ user.certi }}</span>
         </div>
         <div>
           <span>简介：</span>
-          <span>用户的简介信息</span>
+          <span>{{ user.intro }}</span>
         </div>
       </div>
     </div>
     <!-- /用户信息 -->
 
     <!-- 文章列表 -->
+    <van-list
+      v-model="loading"
+      :finished="finished"
+      finished-text="没有更多了"
+      @load="onLoad"
+    >
+      <van-cell
+        v-for="item in list"
+        :key="item"
+        :title="item"
+      />
+    </van-list>
     <!-- /文章列表 -->
   </div>
 </template>
 
 <script>
+import { getUserById } from '@/api/user'
 export default {
-
+  data () {
+    return {
+      user: {}, // 用户信息
+      list: [], // 列表数据
+      loading: false, // 控制上拉加载更多的 loading
+      finished: false // 控制是否加载结束了
+    }
+  },
+  methods: {
+    async loadUser () {
+      try {
+        const { data } = await getUserById(this.$route.params.userId)
+        this.user = data.data
+      } catch (err) {
+        console.log(err)
+        this.$toast('获取用户数据失败')
+      }
+    }
+  },
+  created () {
+    this.loadUser()
+  }
 }
 </script>
 
