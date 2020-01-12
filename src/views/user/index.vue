@@ -68,6 +68,48 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped lang="less">
+.user-container {
+  font-size: 14px;
+  .user-info-container {
+    padding: 12px;
+    background-color: #fff;
+    margin-bottom: 10px;
+    >.row1 {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      .item {
+        text-align: center;
+        .text {
+          font-size: 12px;
+        }
+      }
+      >.col1 {
+        width: 80px;
+        height: 80px;
+      }
+      >.col2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        width: 80%;
+        height: 80px;
+        padding: 0 12px;
+        >.row1 {
+          display: flex;
+          justify-content: space-between;
+        }
+        .action {
+          display: flex;
+          justify-content: space-between;
+          .van-button {
+            width: 45%;
+          }
+        }
+      }
+    }
+  }
+}
 </style>
