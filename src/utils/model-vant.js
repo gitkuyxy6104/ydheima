@@ -12,7 +12,8 @@ import {
   Image,
   Grid,
   GridItem,
-  Icon
+  Icon,
+  Dialog
 } from 'vant'
 
 Vue
@@ -29,3 +30,4 @@ Vue
   .use(Grid)
   .use(GridItem)
   .use(Icon)
+  .use(Dialog)
